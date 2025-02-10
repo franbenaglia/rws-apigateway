@@ -1,0 +1,24 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: api-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: task
+          uri: lb://task
+          predicates:
+            - Path=/api/task/**
+            - Path=/auth/**
+            - Path=/api/task/files/**
+        - id: security
+          uri: lb://security
+          predicates:
+            - Path=/auth/**
+            - Path=/userData/**
+eureka:
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
