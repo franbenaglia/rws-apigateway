@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import reactor.core.publisher.Mono;
 
-//@Component
+@Component
 public class GatewayAuthManager implements ReactiveAuthenticationManager {
 
     @Override
