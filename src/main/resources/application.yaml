@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: api-gateway-service
+  main:
+    web-application-type: reactive
   cloud:
     gateway:
       routes:
@@ -14,10 +16,31 @@ spring:
           uri: lb:ws://reactivehub    
           predicates:
             - Path=/climateData/**
+        - id: streaming
+          uri: lb://streaming    
+          predicates:
+            - Path=/videos/stream/** 
+        - id: streamingnode
+          uri: lb://streamingnode   
+          predicates:
+            - Path=/video/**
 eureka:
   client:
     register-with-eureka: true
     serviceUrl:
       defaultZone: http://servicio-eureka-server:8761/eureka/
+      
+# se comenta para pruebas porque si no estan levantados los servicios rompe
+#management:
+#  zipkin:
+#    tracing:
+#      endpoint: http://192.168.1.41:9411/api/v2/spans
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#  atlas:
+#    metrics:
+#      export:
+#        uri: http://192.168.1.41:7101/api/v1/publish
 
 

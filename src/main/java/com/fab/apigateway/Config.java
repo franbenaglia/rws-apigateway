@@ -11,12 +11,10 @@ public class Config {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route("reactivehub",
-						r -> r.path("/climateData/**").and()
-								.uri("lb://reactivehub"))
+				.route("reactivehub", r -> r.path("/climateData/**").and().uri("lb://reactivehub"))
+				.route("streaming", r -> r.path("/videos/stream/**").and().uri("lb://streaming"))
+				.route("streamingnode", r -> r.path("/video/**").and().uri("lb://streamingnode"))
 				.build();
-
-
 
 	}
 
